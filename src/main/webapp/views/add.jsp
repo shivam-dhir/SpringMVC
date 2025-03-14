@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Result is: ${res}
+	Result is: ${res} <br>
+	Hello Sexy ${name}
 </body>
 </html>

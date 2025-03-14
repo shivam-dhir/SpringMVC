@@ -2,12 +2,17 @@ package com.shivam.SpringMVC;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
+	
+	@ModelAttribute
+	public void assignName(ModelMap mm) {
+		mm.addAttribute("name", "Shivam");
+	}
 	
 	@RequestMapping("/")
 	public String home() {
@@ -15,7 +20,7 @@ public class HomeController {
 		return "index";
 	}
 	
-	@RequestMapping("/add")
+	@RequestMapping("add")
 	// request mapping allows to fetch parameters from HttpServletRequest object
 	public String add(@RequestParam("num1") int num1, @RequestParam("num2") int num2, ModelMap mm) {
 		
@@ -28,7 +33,7 @@ public class HomeController {
 		
 		mm.addAttribute("res", res);
 		
-		return "add"; 
+		return "add";  
 	}
 	
 }
