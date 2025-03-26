@@ -1,4 +1,4 @@
-package com.shivam.SpringMVC;
+package com.shivam.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +20,7 @@ public class Game {
 	}
 
 	// if creating a parameterized constructor for an entity class, it is necessary to create a default constructor with no 
-	// fields
+	// fields. This helps spring to create a bean for this class.
 	public Game(int id, String name, int metascore) {
 		super();
 		this.id = id; 

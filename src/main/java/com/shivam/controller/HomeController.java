@@ -1,18 +1,19 @@
-package com.shivam.SpringMVC;
+package com.shivam.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shivam.dao.GameDao;
+import com.shivam.model.Game;
+
 @Controller
-@ComponentScan(basePackages={"com.shivam.model", "com.shivam.dao"})
 public class HomeController {
 	
 	@Autowired
@@ -33,7 +34,7 @@ public class HomeController {
 	// RequestParam allows to fetch parameters from HttpServletRequest object
 	// Replaces RequestMapping with PostMapping, as RequestMapping also accepts Get requests, which might be triggered when
 	// refreshing the page and adds an empty Game object into the DB.
-	@GetMapping("add")
+	@PostMapping("add")
 	public String add(@ModelAttribute("games") Game game) {
 		
 // 		ModelAndView is an MVC concept to reduce configurations. It is used instead of HttpSession in this case.
