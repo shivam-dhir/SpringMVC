@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Result is: ${res} <br>
-	Hello Sexy ${name}
+	Add page invoked
 </body>
 </html>

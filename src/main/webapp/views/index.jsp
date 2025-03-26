@@ -7,11 +7,27 @@
 <title>Main Page</title>
 </head>
 <body>
-	Hello World !!!
+	Hello Shivam !!!
 	
-	<form action="add">
-		Enter 1st number : <input name="num1" type="text"><br>
-		Enter 2nd number : <input name="num2" type="text"><br>
+	<form action="add" method="post">
+		id : <input name="id" type="text"><br>
+		name : <input name="name" type="text"><br>
+		score : <input name="metascore" type="text"><br>
+		<input value="addGame" type="submit">
+	</form>
+	
+	<hr>
+	
+	Get Game by ID 
+	<form action="getGameById">
+		id : <input name="id" type="text"><br>
+		<input type="submit">
+	</form>
+	
+	<hr>
+	Get Game by Name 
+	<form action="getGameByName" method="post">
+		name : <input name="name" type="text"><br>
 		<input type="submit">
 	</form>
 	

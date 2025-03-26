@@ -1,14 +1,22 @@
 package com.shivam.SpringMVC;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@ComponentScan(basePackages={"com.shivam.model", "com.shivam.dao"})
 public class HomeController {
+	
+	@Autowired
+	private GameDao gameDao;
 	
 	// ModelAttribute is used to assign variables/ objects beforehand
 	@ModelAttribute
@@ -16,26 +24,49 @@ public class HomeController {
 		mm.addAttribute("name", "Shivam");
 	}
 	
-	@GetMapping("/")
+	@RequestMapping("/")
 	public String home() {
 		System.out.println("Home page invoked");
 		return "index";
 	}
 	
-	@GetMapping("add")
-	// request mapping allows to fetch parameters from HttpServletRequest object
-	public String add(@RequestParam("num1") int num1, @RequestParam("num2") int num2, ModelMap mm) {
+	// RequestParam allows to fetch parameters from HttpServletRequest object
+	// Replaces RequestMapping with PostMapping, as RequestMapping also accepts Get requests, which might be triggered when
+	// refreshing the page and adds an empty Game object into the DB.
+	@PostMapping("add")
+	public String add(@ModelAttribute("games") Game game) {
 		
-		// ModelAndView is an MVC concept to reduce configurations. It is used instead of HttpSession in this case.
+// 		ModelAndView is an MVC concept to reduce configurations. It is used instead of HttpSession in this case.
 //		ModelAndView mv = new ModelAndView();
 //		mv.setViewName("add");
+//		mv.addObject("res", res);
+//		mm.addAttribute("res", res);
 		
-		int res = num1 + num2; 
-		//mv.addObject("res", res);
-		
-		mm.addAttribute("res", res);
-		
-		return "add";  
+		gameDao.save(game);
+		return "thankyou";  
+	}
+	
+	@RequestMapping("getGameById")
+	public String getGameById(@RequestParam int id, ModelMap mm) {
+		Game game = gameDao.getOne(id);
+		mm.addAttribute("game", game);
+		return "getGame";
+	}
+	
+	@RequestMapping("getGameByName")
+	public String getGameByName(@RequestParam String name, ModelMap mm) {
+		// findByName is a function created by me, but functionality is given by JpaRepository interface. 
+		// check out GameDao.java file to understand functionality
+		List<Game> games = gameDao.findByNameOrderByMetascoreDesc(name);
+		mm.addAttribute("game", games);
+		return "getGame";
+	}
+	
+	@RequestMapping("showGames")
+	public String showGames(ModelMap mm) {
+		List<Game> games = gameDao.findAll();
+		mm.addAttribute("games", games);
+		return "showGames";
 	}
 	
 }
