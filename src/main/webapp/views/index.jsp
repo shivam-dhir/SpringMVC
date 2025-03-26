@@ -9,7 +9,7 @@
 <body>
 	Hello Shivam !!!
 	
-	<form action="add" method="post">
+	<form action="add" method="get">
 		id : <input name="id" type="text"><br>
 		name : <input name="name" type="text"><br>
 		score : <input name="metascore" type="text"><br>
