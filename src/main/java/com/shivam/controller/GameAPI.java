@@ -3,6 +3,7 @@ package com.shivam.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,15 +42,15 @@ public class GameAPI {
 	// Jackson dependency automatically converts data into JSON format
 	// We can use 'produces' attribute to mention in which format to return data (json/xml etc)
 	@GetMapping(path="games", produces= {"application/xml"})
-	@ResponseBody
+	//@ResponseBody
 	public List<Game> getGames(){
 		List<Game> games = gameDao.findAll();
 		return games;
 	}
 	
 	// @PathVariable is used by variable is present in the URL. It maps the variable in the URL to the method parameter.
-	@GetMapping("game/{id}")
-	@ResponseBody
+	@GetMapping(path = "game/{id}", consumes = "application/json", produces="application/json")
+	//@ResponseBody
 	public Game getGame(@PathVariable("id") int id) {
 		Game game = gameDao.findById(id).orElse(new Game(110,"newGame",0));
 		return game;
