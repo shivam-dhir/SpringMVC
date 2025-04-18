@@ -2,12 +2,14 @@ package com.shivam.controller;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="gamedb")
 public class User {
 
     @Id
-    private long id;
+    private int id;
     private String username;
     private String password;
 
@@ -15,7 +17,7 @@ public class User {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
